@@ -133,13 +133,13 @@ const styles = StyleSheet.create({
     account: {
         fontFamily: 'Public Sans',
         fontSize: 16,
-        color: 'white',
+        color: '#14183d',
     },
     signup: {
         fontFamily: 'Public Sans',
         fontSize: 16,
-        color: 'white',
-        borderBottomColor: '#00AB55',
+        color: '#14183d',
+        borderBottomColor: '#14183d',
         borderBottomWidth: 1,
         
     },

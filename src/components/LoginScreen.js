@@ -1,12 +1,43 @@
 import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import Dashboard from './Dashboard';
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+
+// const callAddUser = () => {
+//     // let params = {userID: 20, name: 'Hello', lastname: 'suvanga'};
+//     axios.post('https://school.dev.itlekh.com/api/login-custom',
+//     )
+//     .then((response) => {
+//         console.log(
+//             'Response:', response);
+//     }).catch((error) => {
+//         console.log('Error:', error);
+//     });
+// }
+
 const LoginScreen = (props) => {
+
     const { navigation } = props
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const callGetUsersList = () => {
+        axios.post('https://school.dev.itlekh.com/api/login-custom',{
+          email: email,
+          password:password,
+      }).then((res) => {
+          console.log("Response: ", res.data);
+      }).catch((error) => {
+          console.log('Error:', error);
+      });
+  }
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'android' ? 'padding' : 'height'}>
@@ -27,24 +58,31 @@ const LoginScreen = (props) => {
                     </Text>
 
                     <Image source={require('./images/logo.png')}
-                    style={{height: 200, width: 300, alignSelf: 'center', marginTop: 40, marginBottom: 40,}}
+                        style={{ height: 200, width: 300, alignSelf: 'center', marginTop: 40, marginBottom: 40, }}
                     />
 
                     <Text style={styles.txt}>
                         Enter your email and password to log in.
                     </Text>
                     <View>
-                        <TextInput style={styles.input}
-                            placeholder={'Email address'}
-                            placeholderTextColor='#637381'
-                            fontFamily='Public Sans'
-                            color='white'
+                        <TextInput
+                            style={styles.input}
+                            value={email}
+                            onChangeText={e => setEmail(e)}
+                            placeholder={'Email'}
+                            placeholderTextColor='black'
+                            color= 'black'
                         />
 
                         <TextInput style={styles.input}
+                            secureTextEntry={true}
+                            onChangeText={e => setPassword(e)}
+                            value={password}
+                            style={styles.input}
                             placeholder={'Password'}
-                            placeholderTextColor='#637381'
-                            fontFamily='Public Sans'
+                            placeholderTextColor='black'
+                            color= 'black'
+
 
                         />
                     </View>
@@ -56,8 +94,11 @@ const LoginScreen = (props) => {
                     </TouchableOpacity>
 
                     <View>
-                        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}
-                        style={styles.btn}>
+
+                        <TouchableOpacity style={styles.btn} onPress={() => {
+                            callGetUsersList(email, password);
+
+                        }} >
                             <Text style={{
                                 fontSize: 17,
                                 fontFamily: 'Public Sans',
@@ -108,7 +149,7 @@ const styles = StyleSheet.create({
         margin: 15,
         color: '#14183d',
         fontWeight: 'bold',
-    
+
 
     },
     forget: {
@@ -141,12 +182,12 @@ const styles = StyleSheet.create({
         color: '#14183d',
         borderBottomColor: '#14183d',
         borderBottomWidth: 1,
-        
+
     },
     footer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        
+
     },
     input: {
         borderColor: '#637381',
@@ -155,6 +196,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         margin: 7,
         padding: 10,
+        color: 'black',
     },
 })
 

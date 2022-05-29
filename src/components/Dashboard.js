@@ -1,41 +1,35 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from './context';
 
-const callGetUsersList = () => {
-    axios.get('https://school.dev.itlekh.com/api/login-custom').then((response) => {
-        console.log(
-            'Response:', response?.data);
-    }).catch((error) => {
-        console.log('Error:', error);
-    });
-}
-
-const callAddUser = () => {
-    // let params = {userID: 10, name: 'Hello', lastname: 'suvanga'};
-    axios.post('https://school.dev.itlekh.com/api/login-custom',
-    params,
-    )
-    .then((response) => {
-        console.log(
-            'Response:', response?.data);
-    }).catch((error) => {
-        console.log('Error:', error);
-    });
-}
 
 const Dashboard = () => {
+
+    const { signOut } = useContext(AuthContext);
+
     return (
         <View>
 
-            <TouchableOpacity onPress={() => {
-                callGetUsersList();
+            {/* <TouchableOpacity onPress={() => {
+                signOut()
+                
             }} >
-                <Text style={{textAlign: 'center', marginTop: 50, fontSize: 30}}>Login</Text>
-            </TouchableOpacity>
+                <Text style={{ textAlign: 'center', marginTop: 50, fontSize: 30 }}>Logout</Text>
+            </TouchableOpacity> */}
+
+            <View>
+                <TouchableOpacity onPress={() => {
+                    signOut();
+                }}>
+                    <Text style={{ marginTop: 50, textAlign: 'center', fontSize: 30 }}>
+                        Logout
+                    </Text>
+                </TouchableOpacity>
+            </View>
 
 
-        </View>
+        </View >
     )
 }
 

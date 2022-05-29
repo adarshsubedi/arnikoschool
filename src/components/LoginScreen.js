@@ -1,24 +1,14 @@
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, Text, ActivityIndicator, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import axios from 'axios';
 import Dashboard from './Dashboard';
+
+import { AuthContext } from './context';
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
-// const callAddUser = () => {
-//     // let params = {userID: 20, name: 'Hello', lastname: 'suvanga'};
-//     axios.post('https://school.dev.itlekh.com/api/login-custom',
-//     )
-//     .then((response) => {
-//         console.log(
-//             'Response:', response);
-//     }).catch((error) => {
-//         console.log('Error:', error);
-//     });
-// }
 
 const LoginScreen = (props) => {
 
@@ -27,102 +17,132 @@ const LoginScreen = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { signIn } = useContext(AuthContext);
+
+    // const [isLoading, setIsLoading] = useState(true);
+    // const [usertoken, setUserToken] = useState(null);
+
+    // const AuthContext = useMemo(() => ({
+    //     signIn: () => {
+    //         setUserToken('hsgdf');
+    //         setIsLoading(false);
+    //     },
+    //     signOut: () => {
+    //         setUserToken(null);
+    //         setIsLoading(false);
+    //     },
+    //     signUp: () => {
+    //         setUserToken('hsgdf');
+    //         setIsLoading(false);
+    //     },
+    // }));
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setIsLoading(false);
+    //     }, 1000);
+    // }, []);
+
+    // if (isLoading) {
+    //     return (
+    //         <View style={{ alignItems: 'center', marginTop: 350 }}>
+    //             <ActivityIndicator size='large' />
+    //         </View>
+    //     )
+    // }
+
     const callGetUsersList = () => {
-        axios.post('https://school.dev.itlekh.com/api/login-custom',{
-          email: email,
-          password:password,
-      }).then((res) => {
-          console.log("Response: ", res.data);
-      }).catch((error) => {
-          console.log('Error:', error);
-      });
-  }
+        axios.post('https://school.dev.itlekh.com/api/login-custom', {
+            email: email,
+            password: password,
+        }).then((res) => {
+            console.log("Response: ", res.data);
+        }).catch((err) => {
+            console.log('Error:', err);
+        });
+    }
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'android' ? 'padding' : 'height'}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
-                    {/* <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
-                        <Icon name='arrow-back' size={30}
-                            style={{
-                                color: 'white',
-                                paddingLeft: 13,
-                                paddingTop: 25,
+        <ScrollView>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'android' ? 'padding' : 'height'}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.container}>
 
-                            }}>
-                        </Icon>
-                    </TouchableOpacity> */}
-                    <Text style={styles.login}>
-                        Arniko School
-                    </Text>
+                        <Text style={styles.login}>
+                            Arniko School
+                        </Text>
 
-                    <Image source={require('./images/logo.png')}
-                        style={{ height: 200, width: 300, alignSelf: 'center', marginTop: 40, marginBottom: 40, }}
-                    />
-
-                    <Text style={styles.txt}>
-                        Enter your email and password to log in.
-                    </Text>
-                    <View>
-                        <TextInput
-                            style={styles.input}
-                            value={email}
-                            onChangeText={e => setEmail(e)}
-                            placeholder={'Email'}
-                            placeholderTextColor='black'
-                            color= 'black'
+                        <Image source={require('./images/logo.png')}
+                            style={{ height: 200, width: 300, alignSelf: 'center', marginTop: 40, marginBottom: 40, }}
                         />
 
-                        <TextInput style={styles.input}
-                            secureTextEntry={true}
-                            onChangeText={e => setPassword(e)}
-                            value={password}
-                            style={styles.input}
-                            placeholder={'Password'}
-                            placeholderTextColor='black'
-                            color= 'black'
-
-
-                        />
-                    </View>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>
-                        <Text style={styles.forget}>
-                            Forgot Password?
+                        <Text style={styles.txt}>
+                            Enter your email and password to log in.
                         </Text>
-                    </TouchableOpacity>
+                        <View>
+                            <TextInput
+                                style={styles.input}
+                                value={email}
+                                onChangeText={e => setEmail(e)}
+                                placeholder={'Email'}
+                                placeholderTextColor='black'
+                                color='black'
+                            />
 
-                    <View>
+                            <TextInput style={styles.input}
+                                secureTextEntry={true}
+                                onChangeText={e => setPassword(e)}
+                                value={password}
+                                style={styles.input}
+                                placeholder={'Password'}
+                                placeholderTextColor='black'
+                                color='black'
 
-                        <TouchableOpacity style={styles.btn} onPress={() => {
-                            callGetUsersList(email, password);
 
-                        }} >
-                            <Text style={{
-                                fontSize: 17,
-                                fontFamily: 'Public Sans',
-                                textAlign: 'center',
-                                borderRadius: 7,
-                                margin: 12,
-                                fontWeight: 'bold',
-                                color: 'white',
-                            }}>Log in</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.footer}>
-                        <Text style={styles.account}>
-                            Don't have an account?
-                        </Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                            <Text style={styles.signup}>
-                                Sign up now
+                            />
+                        </View>
+
+                        <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>
+                            <Text style={styles.forget}>
+                                Forgot Password?
                             </Text>
                         </TouchableOpacity>
+
+                        <View>
+
+                            <TouchableOpacity
+                                style={styles.btn}
+                                onPress={() => {
+                                    callGetUsersList();
+                                    signIn();
+
+                                }} >
+                                <Text style={{
+                                    fontSize: 17,
+                                    fontFamily: 'Public Sans',
+                                    textAlign: 'center',
+                                    borderRadius: 7,
+                                    margin: 12,
+                                    fontWeight: 'bold',
+                                    color: 'white',
+                                }}>Log in</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.footer}>
+                            <Text style={styles.account}>
+                                Don't have an account?
+                            </Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+                                <Text style={styles.signup}>
+                                    Sign up now
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView >
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView >
+        </ScrollView>
     )
 }
 

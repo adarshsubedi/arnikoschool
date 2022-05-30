@@ -51,15 +51,15 @@ const LoginScreen = (props) => {
     //     )
     // }
 
-    const callGetUsersList = () => {
-        axios.post('https://school.dev.itlekh.com/api/login-custom', {
+    const callGetUsersList = async () => {
+
+        const result = await axios.post('https://school.dev.itlekh.com/api/login-custom', {
             email: email,
             password: password,
-        }).then((res) => {
-            console.log("Response: ", res.data);
-        }).catch((err) => {
-            console.log('Error:', err);
-        });
+
+
+        })
+        return result.data.token
     }
 
     return (
@@ -113,9 +113,10 @@ const LoginScreen = (props) => {
 
                             <TouchableOpacity
                                 style={styles.btn}
-                                onPress={() => {
-                                    callGetUsersList();
-                                    signIn();
+                                onPress={async () => {
+                                    const token = await callGetUsersList();
+                                    console.log(token);
+                                    signIn(token);
 
                                 }} >
                                 <Text style={{

@@ -17,18 +17,18 @@ const App = ({ navigation }) => {
   const [usertoken, setUserToken] = useState(null);
 
   const authContext = useMemo(() => ({
-    signIn: () => {
-      setUserToken(null);
+    signIn: (token) => {
+      setUserToken(token);
       setIsLoading(false);
     },
     signOut: () => {
       setUserToken('hsgdf');
       setIsLoading(false);
     },
-    signUp: () => {
-      setUserToken('hsgdf');
-      setIsLoading(false);
-    },
+    // signUp: () => {
+    //   setUserToken('hsgdf');
+    //   setIsLoading(false);
+    // },
   }));
 
   useEffect(() => {
@@ -49,10 +49,10 @@ const App = ({ navigation }) => {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         {usertoken != null ? (
-          <Stack.Navigator initialRouteName='Login' screenOption={{ headerStyle: { backgroundColor: 'black' }, headerTintColor: 'black' }}>
+          <Stack.Navigator screenOption={{ headerStyle: { backgroundColor: 'black' }, headerTintColor: 'black' }}>
             <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
-            <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerShown: false }} />
+
           </Stack.Navigator>
         )
           :

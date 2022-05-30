@@ -19,46 +19,14 @@ const LoginScreen = (props) => {
 
     const { signIn } = useContext(AuthContext);
 
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [usertoken, setUserToken] = useState(null);
-
-    // const AuthContext = useMemo(() => ({
-    //     signIn: () => {
-    //         setUserToken('hsgdf');
-    //         setIsLoading(false);
-    //     },
-    //     signOut: () => {
-    //         setUserToken(null);
-    //         setIsLoading(false);
-    //     },
-    //     signUp: () => {
-    //         setUserToken('hsgdf');
-    //         setIsLoading(false);
-    //     },
-    // }));
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 1000);
-    // }, []);
-
-    // if (isLoading) {
-    //     return (
-    //         <View style={{ alignItems: 'center', marginTop: 350 }}>
-    //             <ActivityIndicator size='large' />
-    //         </View>
-    //     )
-    // }
-
     const callGetUsersList = async () => {
 
         const result = await axios.post('https://school.dev.itlekh.com/api/login-custom', {
             email: email,
             password: password,
 
-
         })
+
         return result.data.token
     }
 

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -13,6 +13,9 @@ const Stack = createNativeStackNavigator();
 
 const App = ({ navigation }) => {
 
+  // const { signIn } = useContext(AuthContext);
+
+
   const [isLoading, setIsLoading] = useState(true);
   const [usertoken, setUserToken] = useState(null);
 
@@ -22,14 +25,14 @@ const App = ({ navigation }) => {
       setIsLoading(false);
     },
     signOut: () => {
-      setUserToken('hsgdf');
+      setUserToken(null);
+    },
+    signUp: () => {
+      setUserToken(token);
       setIsLoading(false);
     },
-    // signUp: () => {
-    //   setUserToken('hsgdf');
-    //   setIsLoading(false);
-    // },
   }));
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -48,16 +51,18 @@ const App = ({ navigation }) => {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        {usertoken != null ? (
-          <Stack.Navigator screenOption={{ headerStyle: { backgroundColor: 'black' }, headerTintColor: 'black' }}>
-            <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ headerShown: false }} />
-            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Navigator screenOption={{ headerStyle: { backgroundColor: 'black' }, headerTintColor: 'black' }}>
+          {usertoken === null ? (
+            <Stack.Group>
+              <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+              <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ headerShown: false }} />
+            </Stack.Group>
+          )
+            :
+            <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerShown: false }} />
 
-          </Stack.Navigator>
-        )
-          :
-          <Dashboard />
-        }
+          }
+        </Stack.Navigator>
       </NavigationContainer>
     </AuthContext.Provider>
   )

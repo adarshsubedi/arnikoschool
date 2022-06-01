@@ -4,10 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import SplashScreen from './src/components/SplashScreen';
-import LoginScreen from './src/components/LoginScreen';
+import LoginScreen from './src/components/Screens/Login Screen/LoginScreen';
 import Dashboard from './src/components/Dashboard';
 
-import { AuthContext } from './src/components/context';
+import { AuthContext } from './src/components/Screens/Login Screen/context';
+import SignupScreen from './src/components/Screens/Signup Screens/SignupScreen';
+import BottomTabNav from './src/components/BottomTabNav/BottomTabNav';
+import Icon from './src/components/Icon/Icon';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,15 +54,31 @@ const App = ({ navigation }) => {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator screenOption={{ headerStyle: { backgroundColor: 'black' }, headerTintColor: 'black' }}>
-          {usertoken === null ? (
+        <Stack.Navigator screenOptions={{
+          headerStyle: { backgroundColor: '#000E28' },
+          headerTintColor: 'white', headerTintColor: 'white'
+        }}>
+          {usertoken === null || usertoken === undefined ? (
             <Stack.Group>
-              <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
               <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ headerShown: false }} />
+              <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+              <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+              <Stack.Screen name='BottomTabNav' component={BottomTabNav} options={{ headerShown: false }} />
             </Stack.Group>
           )
             :
-            <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerShown: false }} />
+            <Stack.Screen name='Dashboard' component={Dashboard}
+              options={{
+                title: 'Home', //Set Header Title
+                headerStyle: {
+                  backgroundColor: '#14183d', //Set Header color
+                },
+                headerTintColor: 'white', //Set Header text color
+                headerTitleStyle: {
+                  fontWeight: 'bold', //Set Header text style
+                },
+                headerRight: () => <Icon />,
+              }} />
 
           }
         </Stack.Navigator>

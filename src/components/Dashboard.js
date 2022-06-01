@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from './context';
+import { AuthContext } from './Screens/Login Screen/context';
 
 
 const Dashboard = () => {

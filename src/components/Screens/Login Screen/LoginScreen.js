@@ -1,7 +1,8 @@
 import { StyleSheet, Text, ActivityIndicator, View, Image, Dimensions, ScrollView, TouchableOpacity, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import axios from 'axios';
-import Dashboard from './Dashboard';
+import Dashboard from '../../Dashboard';
+import CustomButton from '../../CustomButtom/CustomButton';
 
 import { AuthContext } from './context';
 
@@ -41,7 +42,7 @@ const LoginScreen = (props) => {
                             Arniko School
                         </Text>
 
-                        <Image source={require('./images/logo.png')}
+                        <Image source={require('../../images/logo.png')}
                             style={{ height: 200, width: 300, alignSelf: 'center', marginTop: 40, marginBottom: 40, }}
                         />
 
@@ -49,6 +50,7 @@ const LoginScreen = (props) => {
                             Enter your email and password to log in.
                         </Text>
                         <View>
+
                             <TextInput
                                 style={styles.input}
                                 value={email}

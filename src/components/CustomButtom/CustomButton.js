@@ -1,41 +1,57 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import React, { useContext } from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+import NavIcon from 'react-native-vector-icons/MaterialIcons';
+
+
+import axios from 'axios';
+import { AuthContext } from '../Screens/Login Screen/context';
+
 
 const onPress = () => {
-    navigation.navigate('Welcome')
-}
+    navigation.navigate('Welcome');
+};
 
-const CustomButton = ({ onPress, title, image, backgroundColor, borderColor }) => {
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const CustomButton = ({ onPress, backgroundColor, color, borderColor }) => {
+
+    const { signOut } = useContext(AuthContext);
+
     return (
         <View>
-            <Text style={{ backgroundColor, borderColor, borderRadius: 25, borderWidth: 1, }}>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.txt}>
-                        {title}
-                    </Text>
+            <View style={styles.btn}>
+                <TouchableOpacity >
+                    <Icon name="person" size={30}></Icon>
                 </TouchableOpacity>
-            </Text>
-
+                <TouchableOpacity>
+                    <Icon name="notifications" size={30}></Icon>
+                </TouchableOpacity>
+                {/* <TouchableOpacity>
+                    <Icon name="person" size={30}></Icon>
+                </TouchableOpacity> */}
+                <TouchableOpacity onPress={() => {
+                    signOut();
+                }}>
+                    <NavIcon name="logout" size={30}></NavIcon>
+                </TouchableOpacity>
+            </View>
         </View>
     );
-}
-
-
+};
 
 const styles = StyleSheet.create({
     btn: {
-        height: 38,
-        marginHorizontal: 10,
-        right: 10,
+        backgroundColor: 'grey',
+        height: 50,
+        flexDirection: 'row',
+        width: windowWidth,
+        marginTop: 560,
+        justifyContent: 'space-evenly',
+        // marginTop: 5,
+        position: 'relative',
     },
-    txt: {
-        color: 'white',
-        fontWeight: 'bold',
-        marginHorizontal: 10,
-        fontSize: 12,
-        paddingBottom: 7,
-        bottom: 4,
-    },
-})
+});
 
 export default CustomButton;

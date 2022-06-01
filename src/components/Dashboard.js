@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from './Screens/Login Screen/context';
+import Index from './Screens/StarterBoard/Index';
 
 
 const Dashboard = () => {
@@ -10,25 +11,9 @@ const Dashboard = () => {
 
     return (
         <View>
-
-            {/* <TouchableOpacity onPress={() => {
-                signOut()
-                
-            }} >
-                <Text style={{ textAlign: 'center', marginTop: 50, fontSize: 30 }}>Logout</Text>
-            </TouchableOpacity> */}
-
             <View>
-                <TouchableOpacity onPress={() => {
-                    signOut();
-                }}>
-                    <Text style={{ marginTop: 50, textAlign: 'center', fontSize: 30 }}>
-                        Logout
-                    </Text>
-                </TouchableOpacity>
+                <Index />
             </View>
-
-
         </View >
     )
 }

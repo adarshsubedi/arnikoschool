@@ -9,10 +9,10 @@ const Icons = () => {
             <TouchableOpacity
             // onPress={() => navigation.navigate('Login')}
             >
-                <Icon name='notifications-outline' size={30}
+                <Icon name='person' size={25}
                     style={{
                         color: 'white',
-                        paddingRight: 10,
+                        paddingRight: 5,
                         // paddingTop: 20,
                         // alignItems: 'center',
                         // alignContent: 'center',

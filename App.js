@@ -7,7 +7,7 @@ import SplashScreen from './src/components/SplashScreen';
 import LoginScreen from './src/components/Screens/Login Screen/LoginScreen';
 import Dashboard from './src/components/Dashboard';
 
-import ProfileScreen from './src/components/Screens/StarterBoard/ProfileScreen';
+import NoticeScreen from './src/components/Screens/StarterBoard/NoticeScreen';
 import NotificationScreen from './src/components/Screens/StarterBoard/NotificationScreen';
 
 import { AuthContext } from './src/components/Screens/Login Screen/context';
@@ -75,7 +75,7 @@ const App = ({ navigation }) => {
             <>
               <Stack.Screen name='Dashboard' component={Dashboard}
                 options={{
-                  title: 'Home', //Set Header Title
+                  title: 'Notice', //Set Header Title
                   headerStyle: {
                     backgroundColor: '#14183d', //Set Header color
                   },

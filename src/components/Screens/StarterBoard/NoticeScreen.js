@@ -9,17 +9,8 @@ const ProfileScreen = () => {
   return (
     <View>
       <Text>
-        ProfileScreen
+        Notice Screen
       </Text>
-
-
-
-
-
-
-
-
-
     </View>
   )
 }

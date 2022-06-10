@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
     button: {
         flexDirection: 'row',
-        backgroundColor: 'grey',
+        // backgroundColor: 'grey',
         marginTop: 635,
         height: 60,
         width: windowWidth,
